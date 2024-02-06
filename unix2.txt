@@ -1,0 +1,4476 @@
+2. kolokvij, grupa B
+Naslovnica Moji kolegiji PZU 20 Siječanj - 26 Siječanj 2. kolokvij, grupa B
+Pitanje 1
+Netočno
+Mark -2,50 out of
+10,00
+Flag
+question
+Pitanje 2
+Netočno
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 3
+Točno
+Mark 5,00 out of
+5,00
+Započeto Srijeda, 29 Siječanj 2014, 10:39
+Završeno Srijeda, 29 Siječanj 2014, 11:07
+Proteklo vrijeme 28 min 5 s
+Ocjena 47,50 od maksimalno 120,00 (40%)
+Nakon izvođenja koda
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+int pid;
+if ((pid=fork()) == -1) {
+perror("fork");
+return 1;
+} else if (pid == 0) {
+if ((pid=fork()) == -1) {
+perror("fork");
+return 1;
+} else if (pid == 0) {
+sleep(3);
+return 0;
+} else {
+printf("%d\n", getppid());
+return 0;
+}
+}
+wait(NULL);
+return 0;
+}
+broj koji se ispiše će biti:
+Odaberite jedan odgovor:
+a. 1
+b. Kod ima grešku i nemože se iskompajlirati ni pokrenuti
+c. 0
+d. manji od 0
+e. veći od 1
+Točan odgovor je:
+veći od 1
+.
+Efekt izvođenja naredbe
+make
+je:
+Odaberite jedan ili više odgovora:
+A. Izvršavaju se sva pravila definirana u datoteci Makefile
+B. Provjerava se postojanje datoteke Makefile
+C. Izvršava se prvo pravilo definirano u datoteci Makefile
+Točan odgovor je: Izvršava se prvo pravilo definirano u datoteci Makefile.
+Naredba ls -al kol.txt ima za rezultat slijedeći ispis:
+-rw-r--r-- 1 dkrst users 359 2005-01-13 06:48 kol.txt
+NAVIGACIJA UTESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+ANTE ŠIMIĆ ODJAVA
+2. kolokvij, grupa B 1.2.2014.
+https://elearning.fesb.hr/mod/quiz/review.php?attempt=26476 1 / 6
+5,00
+Flag
+question
+Pitanje 4
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 5
+Nije odgovoreno
+Marked out of 10,00
+Flag
+question
+Nakon izvršenja naredbi
+chmod a+r *
+chmod g-w kol.txt
+na datoteci kol.txt će biti postavljena slijedeća prava pristupa:
+Odaberite jedan ili više odgovora:
+A. vlasnik: čitanje, pisanje, izvršavanje; grupa: pisanje; ostali: čitanje
+B. vlasnik: čitanje,pisanje; grupa: čitanje; ostali: čitanje
+C. vlasnik: čitanje, pisanje; grupa: čitanje, pisanje; ostali: čitanje
+D. vlasnik: čitanje, pisanje: grupa: čitanje; ostali: izvršavanje
+Točan odgovor je: vlasnik: čitanje,pisanje; grupa: čitanje; ostali: čitanje.
+Proučite kod:
+#include <stdio.h>
+#include <signal.h>
+int flag=1;
+void int_handler(int signum) {
+printf("Primljen signal\n");
+flag = 0;
+}
+int main() {
+signal(SIGTERM, int_handler);
+while(flag) {
+printf("Novi red...\n");
+}
+printf("Program gotov\n");
+return 0;
+}
+Ako nakon pokretanja programa korisnik pritisne kombinaciju tipaka CTRL - C, rezultatje:
+Odaberite jedan ili više odgovora:
+a. Prekid izvršavanja uz ispis pozdravne poruke:
+Program gotov
+b. Trenutni prekid izvršavanja
+c. Prekid izvršavanja uz ispis pozdravne poruke:
+Primljen signal
+d. Prekid izvršavanja uz ispis pozdravne poruke:
+Primljen signal
+Program gotov
+e. Program ima grešku i nije ga moguće iskompajlirati i pokrenuti
+Točan odgovor je:
+Trenutni prekid izvršavanja
+.
+#define BUFFSIZE 256
+char buf[BUFFSIZE];
+int main() {
+int n, fdin, fdout;
+umask(S_IRGRP | S_IROTH);
+fdout = open("dat.txt", O_WRONLY | O_CREAT,\
+S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | \
+S_IROTH);
+if (fdout == -1) {
+perror("open");
+exit(1);
+}
+fdin = STDIN_FILENO;
+while ((n=read(fdin, buf, BUFFSIZE)) > 0) {
+write(fdout, buf, n);
+}
+2. kolokvij, grupa B 1.2.2014.
+https://elearning.fesb.hr/mod/quiz/review.php?attempt=26476 2 / 6
+Pitanje 6
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 7
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 8
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+if (n < 0)
+perror("read");
+close(fdout);
+exit(0);
+}
+Kao rezultat izvršavanja stvara datoteku dat.txt. Ova datoteka će imati slijedeća prava pristupa:
+Odaberite jedan ili više odgovora:
+A. Pravo čitanja i pisanja za korisnika, pravo čitanja za grupu, bez prava za ostale
+B. Pravo čitanja i pisanja za korisnika, pravo čitanja i pisanja za grupu, pravo čitanja za ostale
+C. Pravo čitanja i pisanja za korisnika, pravo pisanja za grupu, bez prava za ostale
+Točan odgovor je: Pravo čitanja i pisanja za korisnika, pravo pisanja za grupu, bez prava za ostale.
+Poziv funkcije
+lseek(fd, 0, SEEK_END);
+na datoteci koja je otvorena na file deskriptoru fd kao povratnu vrijednost ima
+Odaberite jedan ili više odgovora:
+A. -1
+B. Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci
+C. Veličinu datoteke
+Točan odgovor je: Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci,
+Veličinu datoteke.
+Proučite kod:
+#include <stdio.h>
+#include <signal.h>
+int main() {
+sigset_t set;
+sigemptyset(&set);
+sigaddset(&set, SIGTERM);
+sigprocmask(SIG_BLOCK, &set, NULL);
+while(1) {
+printf("Novi red...\n");
+}
+printf("Program gotov\n");
+return 0;
+}
+Ako nakon pokretanja programa korisnik pritisne kombinaciju tipaka CTRL - C, rezultatje:
+Odaberite jedan ili više odgovora:
+a. Trenutni prekid izvršavanja
+b. Prekid izvršavanja uz ispis pozdravne poruke:
+SIG_BLOCK
+c. Program ima grešku i nije ga moguće iskompajlirati i pokrenuti
+d. Akcija korisnika nema efekta
+e. Prekid izvršavanja uz ispis pozdravne poruke:
+Program gotov
+Točan odgovor je:
+Trenutni prekid izvršavanja
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+if(pid > 0)
+pid = fork();
+}
+Odaberite jedan ili više odgovora:
+2. kolokvij, grupa B 1.2.2014.
+https://elearning.fesb.hr/mod/quiz/review.php?attempt=26476 3 / 6
+Pitanje 9
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 10
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 11
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 12
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+a. 1
+b. Nije definirano
+c. 6
+d. 4
+e. 8
+f. 2
+Točan odgovor je:
+4
+.
+Rezultat izvođenja naredbe
+gcc -Wall -O3 fn.c
+je
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka fn.o
+B. izvršna datoteka fn
+C. objektna datoteka fn.o
+D. izvršna datoteka a.out
+E. objektna datoteka fn
+Točan odgovor je: izvršna datoteka a.out.
+Rezultat izvođenja naredbe
+gcc -Wall -c -O3 fn.c
+je
+Odaberite jedan ili više odgovora:
+A. objektna datoteka fn
+B. objektna datoteka fn.o
+C. izvršna datoteka a.out
+D. izvršna datoteka fn.o
+E. izvršna datoteka fn
+Točan odgovor je: objektna datoteka fn.o.
+Poziv funkcije
+lseek(fd, 0, SEEK_SET);
+na datoteci koja je otvorena na file deskriptoru fd kao povratnu vrijednost ima
+Odaberite jedan ili više odgovora:
+A. Nula
+B. Veličinu datoteke
+C. Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci
+Točan odgovor je: Nula, Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u
+datoteci.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i<3; i++) {
+if(pid == 0)
+pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. Nije definirano
+c. 1
+2. kolokvij, grupa B 1.2.2014.
+https://elearning.fesb.hr/mod/quiz/review.php?attempt=26476 4 / 6
+Pitanje 13
+Nije odgovoreno
+Marked out of 5,00
+Flag
+question
+Pitanje 14
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 15
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+d. 2
+e. 4
+f. 8
+Točan odgovor je:
+4
+.
+U Makefile datoteci:
+CC = /usr/bin/gcc
+FLAGS = -Wall -O3
+TARGETS = hello01 hello02 hello12 hello11 hello13
+default: hello13
+all: hello01 hello02 hello11 hello12 hello13
+hello01: hello.c
+$(CC) $(FLAGS) hello.c -o hello01
+hello02: hello1.c funkcija.c funkcija2.c
+$(CC) $(FLAGS) hello1.c funkcija.c funkcija2.c \
+-o hello02
+hello11: hello.o
+$(CC) $(FLAGS) hello.o -o hello11
+hello12: hello1.o funkcija.o funkcija2.o
+$(CC) $(FLAGS) hello1.o funkcija.o funkcija2.o \
+-o hello12
+hello13: hello1.o
+$(CC) $(FLAGS) hello1.o libmoj.a -o hello13
+clean:
+rm -f *.o *~ a.out $(TARGETS)
+.c.o:
+$(CC) $(FLAGS) -c $<
+Odaberite jedan ili više odgovora:
+A. Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku
+B. Pravila hello11 i hello12 generiraju jednaku izvršnu datoteku
+C. Pravila hello01 i hello02 generiraju jednaku izvršnu datoteku
+D. ravila hello02 i hello12 generiraju jednaku izvršnu datoteku
+Točan odgovor je: Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku, ravila hello02 i hello12
+generiraju jednaku izvršnu datoteku.
+Naredba
+tar -cf arhiva.tar programi/
+Odaberite jedan ili više odgovora:
+A. Arhivira sadržaj direktorija programi u arhivu arhiva.tar
+B. Raspakira sadržaj arhive arhiva.tar u direktorij programi
+Točan odgovor je: Arhivira sadržaj direktorija programi u arhivu arhiva.tar.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+if(pid != 0)
+pid = fork();
+}
+2. kolokvij, grupa B 1.2.2014.
+https://elearning.fesb.hr/mod/quiz/review.php?attempt=26476 5 / 6
+©© 22001144 SSvvaa pprraavvaa pprriiddrržžaannaa..
+Odaberite jedan ili više odgovora:
+a. Nije definirano
+b. 1
+c. 2
+d. 4
+e. 6
+f. 8
+Točan odgovor je:
+Nije definirano
+.
+Završi pregled
+2. kolokvij, grupa B 1.2.2014.
+https://elearning.fesb.hr/mod/quiz/review.php?attempt=26476 6 / 6
+2. kolokvij - primjer
+Naslovnica Moji kolegiji PZU 13 Siječanj - 19 Siječanj 2. kolokvij - primjer
+Pitanje 1
+Nije odgovoreno
+Marked out of 10,00
+Flag
+question
+Pitanje 2
+Nije odgovoreno
+Marked out of 10,00
+Flag
+question
+Započeto Ponedjeljak, 27 Siječanj 2014, 14:13
+Završeno Ponedjeljak, 27 Siječanj 2014, 14:13
+Proteklo vrijeme 42 s
+Bodovi 0,00/70,00
+Ocjena 0,00 od maksimalno 100,00
+U Makefile datoteci:
+CC = /usr/bin/gcc
+FLAGS = -Wall -O3
+TARGETS = hello01 hello02 hello12 hello11 hello13
+default: hello13
+all: hello01 hello02 hello11 hello12 hello13
+hello01: hello.c
+$(CC) $(FLAGS) hello.c -o hello01
+hello02: hello1.c funkcija.c funkcija2.c
+$(CC) $(FLAGS) hello1.c funkcija.c funkcija2.c \
+-o hello02
+hello11: hello.o
+$(CC) $(FLAGS) hello.o -o hello11
+hello12: hello1.o funkcija.o funkcija2.o
+$(CC) $(FLAGS) hello1.o funkcija.o funkcija2.o \
+-o hello12
+hello13: hello1.o
+$(CC) $(FLAGS) hello1.o libmoj.a -o hello13
+clean:
+rm -f *.o *~ a.out $(TARGETS)
+.c.o:
+$(CC) $(FLAGS) -c $<
+Odaberite jedan ili više odgovora:
+A. ravila hello02 i hello12 generiraju jednaku izvršnu datoteku
+B. Pravila hello11 i hello12 generiraju jednaku izvršnu datoteku
+C. Pravila hello01 i hello02 generiraju jednaku izvršnu datoteku
+D. Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku
+Točan odgovor je: Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku, ravila hello02 i hello12
+generiraju jednaku izvršnu datoteku.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+printf("Hello!\n");
+}
+Naredbom
+gcc -Wall funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+A. objektna datoteka ispis.o
+NAVIGACIJA UTESTU
+Završi pregled
+1 2 3 4 5 6 7
+ANTE ŠIMIĆ ODJAVA
+2. kolokvij - primjer 27.1.2014.
+https://elearning.fesb.hr/mod/quiz/review.php?attempt=26290 1 / 3
+Pitanje 3
+Nije odgovoreno
+Marked out of 10,00
+Flag
+question
+Pitanje 4
+Nije odgovoreno
+Marked out of 10,00
+Flag
+question
+Pitanje 5
+Nije odgovoreno
+Marked out of 10,00
+Flag
+question
+B. objektna datoteka funkcija.o
+C. greška! Datoteka ne sadrži funkciju main
+D. izvršna datoteka a.out
+E. objektna datoteka a.out
+Točan odgovor je: greška! Datoteka ne sadrži funkciju main.
+Naredba
+read(fd, buf, 100);
+iz datoteke otvorene na file deskriptoru fd čita
+Odaberite jedan ili više odgovora:
+A. najviše 100 znakova
+B. najmanje 100 znakova
+C. točno 100 znakova
+Točan odgovor je: najviše 100 znakova.
+Proučite kod:
+#include <stdio.h>
+#include <signal.h>
+int main() {
+sigset_t set;
+sigfillset(&set);
+sigaddset(&set, SIGTERM);
+sigprocmask(SIG_BLOCK, &set, NULL);
+while(1) {
+printf("Novi red...\n");
+}
+printf("Program gotov\n");
+return 0;
+}
+Ako nakon pokretanja programa korisnik pritisne kombinaciju tipaka CTRL - C, rezultatje:
+Odaberite jedan ili više odgovora:
+a. Akcija korisnika nema efekta
+b. Prekid izvršavanja uz ispis pozdravne poruke:
+Program gotov
+c. Trenutni prekid izvršavanja
+d. Program ima grešku i nije ga moguće iskompajlirati i pokrenuti
+e. Prekid izvršavanja uz ispis pozdravne poruke:
+SIG_BLOCK
+Točan odgovor je:
+Akcija korisnika nema efekta
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+if(pid > 0)
+pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. 4
+c. 8
+d. Nije definirano
+e. 2
+f. 1
+Točan odgovor je:
+4
+2. kolokvij - primjer 27.1.2014.
+https://elearning.fesb.hr/mod/quiz/review.php?attempt=26290 2 / 3
+©© 22001144 SSvvaa pprraavvaa pprriiddrržžaannaa..
+Pitanje 6
+Nije odgovoreno
+Marked out of 10,00
+Flag
+question
+Pitanje 7
+Nije odgovoreno
+Marked out of 10,00
+Flag
+question
+.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+int status, pid;
+struct rlimit rlim;
+pid = fork();
+if (pid == 0) { // child
+rlim.rlim_cur = 5;
+rlim.rlim_max = 5;
+setrlimit(RLIMIT_CPU, &rlim);
+execvp(argv[1], &argv[1]);
+} else {
+wait(&status);
+}
+return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+a. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+točno 5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe
+se prekida najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+d. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe
+se prekida točno 5 sekundi nakon pokretanja
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida najmanje 5 sekundi nakon pokretanja
+.
+Poziv funkcije
+lseek(fd, 0, SEEK_SET);
+na datoteci koja je otvorena na file deskriptoru fd kao povratnu vrijednost ima
+Odaberite jedan ili više odgovora:
+A. Veličinu datoteke
+B. Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci
+C. Nula
+Točan odgovor je: Nula, Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u
+datoteci.
+Završi pregled
+2. kolokvij - primjer 27.1.2014.
+https://elearning.fesb.hr/mod/quiz/review.php?attempt=26290 3 / 3
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57437 1/7
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj - 23 Siječanj 2. Kolokvij
+Pitanje 1
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 2
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Započeto Četvrtak, 8 Veljača 2018, 10:15
+Završeno Četvrtak, 8 Veljača 2018, 10:41
+Proteklo vrijeme 25 min 39 s
+Ocjena 80,00 od maksimalno 120,00 (67%)
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int status, pid;
+ struct rlimit rlim;
+ argv[2] = NULL;
+ pid = fork();
+ if (pid == 0) { // child
+ rlim.rlim_cur = 5;
+ rlim.rlim_max = 5;
+ setrlimit(RLIMIT_CPU, &rlim);
+ execvp(argv[1], &argv[1]);
+ } else {
+ wait(&status);
+ }
+ return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+a. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida točno
+5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+d. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida najmanje 5
+sekundi nakon pokretanja
+.
+Nakon izvođenja koda
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+BORNA DOBRIĆ ODJAVA
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57437 2/7
+Pitanje 3
+Netočno
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 4
+int main(int argc, char **argv) {
+ int pid;
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ sleep(3);
+ return 0;
+ } else {
+ printf("%d\n", getppid());
+ return 0;
+ }
+ }
+ wait(NULL);
+ return 0;
+}
+broj koji se ispiše će biti:
+Odaberite jedan odgovor:
+a. veći od 1
+b. 0
+c. manji od 0
+d. 1
+e. Kod ima grešku i nemože se iskompajlirati ni pokrenuti
+Točan odgovor je:
+veći od 1
+.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+ printf("Hello!\n");
+}
+Naredbom
+gcc -Wall -c funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka a.out
+B. greška! Datoteka ne sadrži funkciju main
+C. objektna datoteka ispis.o
+D. objektna datoteka a.out
+E. objektna datoteka funkcija.o
+Točan odgovor je: objektna datoteka funkcija.o.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57437 3/7
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 5
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 6
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 7
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+int i, pid=0;
+for (i=0; i>3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 1
+b. 8
+c. 4
+d. 2
+e. Nije definirano
+f. 6
+Točan odgovor je:
+1
+.
+Ulazne datoteke za gcc mogu biti:
+Odaberite jedan ili više odgovora:
+A. arhive objektnog koda (libovi) *.a
+B. datoteke izvršnog koda
+C. C++ datoteke izvornog koda *.cc 
+D. C datoteke izvornog koda *.c
+E. objektne datoteke *.o
+Točan odgovor je: C datoteke izvornog koda *.c, C++ datoteke izvornog koda *.cc , objektne datoteke *.o,
+arhive objektnog koda (libovi) *.a.
+U pravilu
+string1: string2
+ string3
+string1 predstavlja:
+Odaberite jedan ili više odgovora:
+A. Datoteke o kojima ovisi prevođenje
+B. Naziv pravila koji se koristi kod pozivanja make rutine
+C. Naredbe koje se izvršavaju kada se pozove pravilo
+D. Naziv izvršne datoteke koja nastaje izvođenjem pravila
+Točan odgovor je: Naziv pravila koji se koristi kod pozivanja make rutine.
+Nakon izvođenja koda
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int pid;
+ if ((pid=fork()) == -1) {
+ perror("fork");
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57437 4/7
+Pitanje 8
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 9
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+ return 1;
+ } else if (pid == 0) {
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ sleep(3);
+ printf("%d\n", getppid());
+ return 0;
+ } else
+ return 0;
+ }
+ wait(NULL);
+ return 0;
+}
+broj koji se ispiše će biti:
+Odaberite jedan odgovor:
+a. manji od 0
+b. 0
+c. veći od 1
+d. 1
+e. Kod ima grešku i nemože se iskompajlirati ni pokrenuti
+Točan odgovor je:
+1
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i<3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. 4
+c. 1
+d. 8
+e. 2
+Točan odgovor je:
+4
+.
+U Makefile datoteci:
+CC = /usr/bin/gcc
+FLAGS = -Wall -O3
+TARGETS = hello01 hello02 hello12 hello11 hello13
+default: hello13
+all: hello01 hello02 hello11 hello12 hello13
+hello01: hello.c
+ $(CC) $(FLAGS) hello.c -o hello01
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57437 5/7
+Pitanje 10
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 11
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+hello02: hello1.c funkcija.c funkcija2.c
+ $(CC) $(FLAGS) hello1.c funkcija.c funkcija2.c \
+ -o hello02
+hello11: hello.o
+ $(CC) $(FLAGS) hello.o -o hello11
+hello12: hello1.o funkcija.o funkcija2.o
+ $(CC) $(FLAGS) hello1.o funkcija.o funkcija2.o \
+ -o hello12
+hello13: hello1.o
+ $(CC) $(FLAGS) hello1.o libmoj.a -o hello13
+clean:
+ rm -f *.o *~ a.out $(TARGETS)
+.c.o:
+ $(CC) $(FLAGS) -c $<
+Odaberite jedan ili više odgovora:
+A. Pravila hello11 i hello12 generiraju jednaku izvršnu datoteku
+B. ravila hello02 i hello12 generiraju jednaku izvršnu datoteku
+C. Pravila hello01 i hello02 generiraju jednaku izvršnu datoteku
+D. Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku
+Točan odgovor je: Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku, ravila hello02 i hello12
+generiraju jednaku izvršnu datoteku.
+Naredba ls -al kol.txt ima za rezultat slijedeći ispis:
+-rw-r--r-- 1 dkrst users 359 2005-01-13 06:48 kol.txt
+Nakon izvršenja naredbi
+chmod a+r *
+chmod g-w kol.txt
+na datoteci kol.txt će biti postavljena slijedeća prava pristupa:
+Odaberite jedan ili više odgovora:
+A. vlasnik: čitanje,pisanje; grupa: čitanje; ostali: čitanje
+B. vlasnik: čitanje, pisanje: grupa: čitanje; ostali: izvršavanje
+C. vlasnik: čitanje, pisanje, izvršavanje; grupa: pisanje; ostali: čitanje
+D. vlasnik: čitanje, pisanje; grupa: čitanje, pisanje; ostali: čitanje
+Točan odgovor je: vlasnik: čitanje,pisanje; grupa: čitanje; ostali: čitanje.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 8
+b. 1
+c. 6
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57437 6/7
+Pitanje 12
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 13
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 14
+Nije odgovoreno
+Marked out of 5,00
+d. 2
+e. Nije definirano
+f. 4
+Točan odgovor je:
+4
+.
+Naredba
+write(fd, buf, 100);
+u datoteke otvorene na file deskriptoru fd upisuje
+Odaberite jedan ili više odgovora:
+A. najviše 100 znakova
+B. najmanje 100 znakova
+C. točno 100 znakova
+Točan odgovor je: najviše 100 znakova.
+#define BUFFSIZE 256
+char buf[BUFFSIZE];
+int main() {
+int n, fdin, fdout;
+umask(S_IRGRP | S_IROTH);
+fdout = open("dat.txt", O_WRONLY | O_CREAT,\
+S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | \ 
+S_IROTH);
+if (fdout == -1) {
+perror("open");
+exit(1);
+} 
+fdin = STDIN_FILENO;
+while ((n=read(fdin, buf, BUFFSIZE)) > 0) {
+write(fdout, buf, n);
+}
+if (n < 0)
+perror("read");
+close(fdout);
+exit(0);
+}
+Kao rezultat izvršavanja stvara datoteku dat.txt. Ova datoteka će imati slijedeća prava pristupa: 
+Odaberite jedan ili više odgovora:
+A. Pravo čitanja i pisanja za korisnika, pravo čitanja i pisanja za grupu, pravo čitanja za ostale
+B. Pravo čitanja i pisanja za korisnika, pravo čitanja za grupu, bez prava za ostale
+C. Pravo čitanja i pisanja za korisnika, pravo pisanja za grupu, bez prava za ostale
+Točan odgovor je: Pravo čitanja i pisanja za korisnika, pravo pisanja za grupu, bez prava za ostale.
+Želite obrisati direktorij /home/user1/unix/tmp
+Pod pretpostavkom da je vaš radni direktorij (direktorij u kojem se trenutno nalazite) /home/user1,
+potrebno je izvršiti slijedeću naredbu:
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57437 7/7
+© 2018 Sva prava pridržana.
+Flag
+question
+Pitanje 15
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Odaberite jedan ili više odgovora:
+A. rm unix/tmp
+B. rmdir unix/tmp
+C. rmdir ./unix/tmp
+D. rm /home/usrer1/unix/tmp
+E. rmdir ../tmp
+Točan odgovor je: rmdir unix/tmp, rmdir ./unix/tmp.
+Poziv funkcije
+creat("dat1.txt", O_RDONLY)
+kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. Nenegativni file deskriptor otvorene datoteke
+B. Pokazivač tipa FILE *fp koji pokazuje na otvorenu datoteku
+C. Poziv funkcije creat sa navedenim argumentima je pogrešan
+Točan odgovor je: Poziv funkcije creat sa navedenim argumentima je pogrešan.
+Završi pregled
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57455 1/6
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj - 23 Siječanj 2. Kolokvij
+Pitanje 1
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 2
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 3
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Započeto Četvrtak, 8 Veljača 2018, 10:54
+Završeno Četvrtak, 8 Veljača 2018, 11:05
+Proteklo vrijeme 11 min 18 s
+Ocjena 110,00 od maksimalno 120,00 (92%)
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. Nije definirano
+b. 8
+c. 4
+d. 1
+e. 2
+f. 6
+Točan odgovor je:
+Nije definirano
+.
+Naredba
+write(fd, buf, 100);
+u datoteke otvorene na file deskriptoru fd upisuje
+Odaberite jedan ili više odgovora:
+A. točno 100 znakova
+B. najmanje 100 znakova
+C. najviše 100 znakova
+Točan odgovor je: najviše 100 znakova.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+printf("Hello!\n");
+}
+Naredbom
+gcc -Wall funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+BOŽIDAR KOVAČIĆ ODJAVA
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57455 2/6
+Pitanje 4
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 5
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 6
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+A. objektna datoteka funkcija.o
+B. izvršna datoteka a.out
+C. objektna datoteka ispis.o
+D. greška! Datoteka ne sadrži funkciju main
+E. objektna datoteka a.out
+Točan odgovor je: greška! Datoteka ne sadrži funkciju main.
+Naredbom 
+cd ./..
+Odaberite jedan ili više odgovora:
+A. Mijenjamo radni direktorij
+B. Ne mijenjamo radni direktorij
+Točan odgovor je: Mijenjamo radni direktorij.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i<3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 8
+b. 4
+c. 6
+d. 2
+e. 1
+Točan odgovor je:
+4
+.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int status, pid;
+ struct rlimit rlim;
+ argv[2] = NULL;
+ pid = fork();
+ if (pid == 0) { // child
+ rlim.rlim_cur = 5;
+ rlim.rlim_max = 5;
+ setrlimit(RLIMIT_CPU, &rlim);
+ execvp(argv[1], &argv[1]);
+ } else {
+ wait(&status);
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57455 3/6
+Pitanje 7
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 8
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 9
+Točno
+Mark 10,00 out of
+10,00
+ }
+ return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+a. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida točno
+5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+d. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida najmanje 5 sekundi nakon pokretanja
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida najmanje 5
+sekundi nakon pokretanja
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i>3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 1
+b. 4
+c. 2
+d. Nije definirano
+e. 6
+f. 8
+Točan odgovor je:
+1
+.
+Na direktoriju programi koji se nalazi u radnom direktoriju (direktorij u kojem se trenutno nalazimo)
+želimo svim korisnicima sustava dati mogućnost pregleda sadržaja direktorija. Ovo ćemo ostvariti
+slijedećom naredbom:
+Odaberite jedan ili više odgovora:
+A. chmod a+r programi
+B. chmod guo+r programi
+C. chmod ug+r programi
+D. chmod 744 programi
+Točan odgovor je: chmod a+r programi, chmod guo+r programi, chmod 744 programi.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57455 4/6
+Flag
+question
+Pitanje 10
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 11
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 12
+Točno
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 1
+b. 2
+c. 8
+d. 6
+e. 4
+Točan odgovor je:
+4
+.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+ printf("Hello!\n");
+}
+int main() {
+ ispis();
+ return 0;
+}
+Naredbom
+gcc -Wall funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka a.out
+B. izvršna datoteka funkcija
+C. objektna datoteka ispis.o
+D. objektna datoteka funkcija.o
+E. izvršna datoteka funkcija.o
+Točan odgovor je: izvršna datoteka a.out.
+Naredba
+read(fd, buf, 100);
+iz datoteke otvorene na file deskriptoru fd čita
+Odaberite jedan ili više odgovora:
+A. najmanje 100 znakova
+B. najviše 100 znakova
+C. točno 100 znakova
+Točan odgovor je: najviše 100 znakova.
+U pravilu
+string1: string2
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57455 5/6
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 13
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 14
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 15
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+ string3
+string1 predstavlja:
+Odaberite jedan ili više odgovora:
+A. Naziv pravila koji se koristi kod pozivanja make rutine
+B. Naziv izvršne datoteke koja nastaje izvođenjem pravila
+C. Naredbe koje se izvršavaju kada se pozove pravilo
+D. Datoteke o kojima ovisi prevođenje
+Točan odgovor je: Naziv pravila koji se koristi kod pozivanja make rutine.
+Efekt izvođenja naredbe
+make dat1
+je:
+Odaberite jedan ili više odgovora:
+A. Izvršava se prvo pravilo definirano u datoteci dat1
+B. Izvršava se pravilo dat1 definirano u datoteci Makefile
+C. Izvršava se pravilo dat1 definirano u datoteci dat1
+Točan odgovor je: Izvršava se pravilo dat1 definirano u datoteci Makefile.
+Poziv funkcije
+lseek(fd, 0, SEEK_SET);
+na datoteci koja je otvorena na file deskriptoru fd kao povratnu vrijednost ima
+Odaberite jedan ili više odgovora:
+A. Veličinu datoteke
+B. Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci
+C. Nula
+Točan odgovor je: Nula, Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i<3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 8
+b. 1
+c. Nije definirano
+d. 6
+e. 4
+f. 2
+Točan odgovor je:
+4
+.
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57455 6/6
+© 2018 Sva prava pridržana.
+Završi pregled
+09. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57445 1/5
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj - 23 Siječanj 2. Kolokvij
+Pitanje 1
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 2
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 3
+Točno
+Mark 5,00 out of
+5,00
+Započeto Četvrtak, 8 Veljača 2018, 10:51
+Završeno Četvrtak, 8 Veljača 2018, 11:09
+Proteklo vrijeme 18 min
+Ocjena 70,00 od maksimalno 120,00 (58%)
+Naredbom 
+cd ~
+Odaberite jedan ili više odgovora:
+A. Pozicionioramo se u direktorij /
+B. Pozicioniramo se u direktorij /home
+C. Pozicioniramo se u direktorij ~ koji se nalazi u direktoriju u kojem smo se nalazili prije pozivanja
+naredbe
+D. Pozicioniramo se u vlastiti home direktorij
+Točan odgovor je: Pozicioniramo se u vlastiti home direktorij.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int status, pid;
+ struct rlimit rlim;
+ pid = fork();
+ if (pid == 0) { // child
+ execvp(argv[1], &argv[1]);
+ } else {
+ rlim.rlim_cur = 5;
+ rlim.rlim_max = 5;
+ setrlimit(RLIMIT_CPU, &rlim);
+ wait(&status);
+ }
+ return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+a. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Vrijeme izvršavanja
+naredbe nije ograničeno
+d. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Vrijeme izvršavanja naredbe nije
+ograničeno
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Vrijeme izvršavanja naredbe nije
+ograničeno
+.
+Izlazne datoteke za gcc mogu biti:
+Odaberite jedan ili više odgovora:
+A. C datoteke izvornog koda *.c
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+IVAN KOPILAŠ ODJAVA
+09. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57445 2/5
+Flag
+question
+Pitanje 4
+Netočno
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 5
+Nije odgovoreno
+Marked out of
+10,00
+Flag
+question
+Pitanje 6
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 7
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+B. arhive objektnog koda (libovi) *.a
+C. C++ datoteke izvornog koda *.cc
+D. datoteke izvršnog koda
+E. objektne datoteke *.o
+Točan odgovor je: objektne datoteke *.o, datoteke izvršnog koda.
+Efekt izvođenja naredbe
+make -f dat1 dat2
+je:
+Odaberite jedan ili više odgovora:
+A. Izvršava se pravilo dat1 definirano u datoteci dat2
+B. Izvršava se pravilo dat2 definirano u datoteci dat1
+C. Izvršavaju se pravila dat1 i dat2 redom kojim su navedeni
+Točan odgovor je: Izvršava se pravilo dat2 definirano u datoteci dat1.
+Poziv funkcije
+lseek(fd, 0, SEEK_CUR);
+na datoteci koja je otvorena na file deskriptoru fd nas pozicionira
+Odaberite jedan ili više odgovora:
+A. Ne mijenja trenutnu poziciju
+B. Na kraj datoteke
+C. Na početak datoteke
+Točan odgovor je: Ne mijenja trenutnu poziciju.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i>3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. Nije definirano
+b. 8
+c. 4
+d. 2
+e. 6
+f. 1
+Točan odgovor je:
+1
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. 1
+09. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57445 3/5
+Pitanje 8
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 9
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 10
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 11
+Netočno
+c. Nije definirano
+d. 4
+e. 8
+f. 2
+Točan odgovor je:
+4
+.
+Naredba ls -al kol.txt ima za rezultat slijedeći ispis:
+-rw-r--r-- 1 dkrst users 359 2005-01-13 06:48 kol.txt
+Nakon izvršenja naredbi
+chmod a+r *
+chmod g-w kol.txt
+na datoteci kol.txt će biti postavljena slijedeća prava pristupa:
+Odaberite jedan ili više odgovora:
+A. vlasnik: čitanje, pisanje, izvršavanje; grupa: pisanje; ostali: čitanje
+B. vlasnik: čitanje, pisanje: grupa: čitanje; ostali: izvršavanje
+C. vlasnik: čitanje, pisanje; grupa: čitanje, pisanje; ostali: čitanje
+D. vlasnik: čitanje,pisanje; grupa: čitanje; ostali: čitanje
+Točan odgovor je: vlasnik: čitanje,pisanje; grupa: čitanje; ostali: čitanje.
+Efekt izvođenja naredbe
+make dat1
+je:
+Odaberite jedan ili više odgovora:
+A. Izvršava se prvo pravilo definirano u datoteci dat1
+B. Izvršava se pravilo dat1 definirano u datoteci dat1
+C. Izvršava se pravilo dat1 definirano u datoteci Makefile
+Točan odgovor je: Izvršava se pravilo dat1 definirano u datoteci Makefile.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 8
+b. Nije definirano
+c. 2
+d. 6
+e. 1
+f. 4
+Točan odgovor je:
+Nije definirano
+.
+Rezultat izvođenja naredbe
+gcc -Wall -O3 fn.c
+09. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57445 4/5
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 12
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 13
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+je
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka fn.o
+B. izvršna datoteka fn
+C. objektna datoteka fn.o
+D. izvršna datoteka a.out
+E. objektna datoteka fn
+Točan odgovor je: izvršna datoteka a.out.
+#define BUFFSIZE 256
+char buf[BUFFSIZE];
+int main() {
+int n, fdin, fdout;
+umask(S_IWGRP | S_IRGRP | S_IWOTH);
+fdout = open("dat.txt", O_WRONLY | O_CREAT, \
+S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | \
+S_IROTH);
+if (fdout == -1) {
+perror("open");
+exit(1);
+} 
+fdin = STDIN_FILENO;
+while ((n=read(fdin, buf, BUFFSIZE)) > 0) {
+write(fdout, buf, n);
+}
+if (n < 0)
+perror("read");
+close(fdout);
+exit(0);
+}
+Kao rezultat izvršavanja stvara datoteku dat.txt. Ova datoteka će imati slijedeća prava pristupa: 
+Odaberite jedan ili više odgovora:
+A. Pravo čitanja i pisanja za korisnika, pravo čitanja i pisanja za grupu, pravo čitanja za ostale
+B. Pravo čitanja i pisanja za korisnika, bez prava za grupu, pravo čitanja za ostale
+C. Pravo čitanja i pisanja za korisnika, pravo čitanja za grupu, bez prava za ostale
+Točan odgovor je: Pravo čitanja i pisanja za korisnika, bez prava za grupu, pravo čitanja za ostale.
+Nakon izvođenja koda
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int pid;
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ sleep(3);
+09. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57445 5/5
+© 2018 Sva prava pridržana.
+Pitanje 14
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 15
+Nije odgovoreno
+Marked out of
+10,00
+Flag
+question
+ printf("%d\n", getppid());
+ return 0;
+ } else
+ return 0;
+ }
+ wait(NULL);
+ return 0;
+}
+broj koji se ispiše će biti:
+Odaberite jedan odgovor:
+a. manji od 0
+b. 1
+c. Kod ima grešku i nemože se iskompajlirati ni pokrenuti
+d. veći od 1
+e. 0
+Točan odgovor je:
+1
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i>3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 1
+b. Nije definirano
+c. 6
+d. 8
+e. 4
+f. 2
+Točan odgovor je:
+1
+.
+Funkcija close kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. Nula, -1 u slučaju greške
+B. File deskriptor zatvorene datoteke, 0 u slučaju greške
+C. File deskriptor zatvorene datoteke, -1 u slučaju greške
+Točan odgovor je: Nula, -1 u slučaju greške.
+Završi pregled
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57447 1/6
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj - 23 Siječanj 2. Kolokvij
+Pitanje 1
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 2
+Netočno
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 3
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Započeto Četvrtak, 8 Veljača 2018, 10:51
+Završeno Četvrtak, 8 Veljača 2018, 11:20
+Proteklo vrijeme 28 min 59 s
+Ocjena 70,00 od maksimalno 120,00 (58%)
+Želite obrisati sve datoteke u radnom direktoriju (direktorij u kojem se trenutno nalazite). Datoteke je
+potrebno obrisati na način da za svaku pojedinu datoteku sustav zatraži potvrdu brisanja.
+Naredba koju će te izvršiti je:
+Odaberite jedan ili više odgovora:
+A. rm -f *.*
+B. rm -i *
+C. rm -i *.*
+D. rm -f *
+Točan odgovor je: rm -i *.
+Za simbolička prava pristupa zadana sa
+-rwxr-r-x
+oktalni mod glasi:
+Odaberite jedan ili više odgovora:
+A. 745
+B. 666
+C. 744
+D. 754
+E. 645
+F. 644
+Točan odgovor je: 745.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int status, pid;
+ struct rlimit rlim;
+ pid = fork();
+ if (pid == 0) { // child
+ rlim.rlim_cur = 5;
+ rlim.rlim_max = 5;
+ setrlimit(RLIMIT_CPU, &rlim);
+ argv[2] = NULL;
+ execvp(argv[1], &argv[1]);
+ } else {
+ wait(&status);
+ }
+ return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+IVAN MAGAŠ ODJAVA
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57447 2/6
+Pitanje 4
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 5
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 6
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+a. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida najmanje 5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida točno
+5 sekundi nakon pokretanja
+d. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida najmanje 5
+sekundi nakon pokretanja
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. 1
+c. Nije definirano
+d. 4
+e. 8
+f. 2
+Točan odgovor je:
+4
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 8
+b. 2
+c. 4
+d. 6
+e. 1
+Točan odgovor je:
+4
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i<3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 8
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57447 3/6
+Pitanje 7
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 8
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 9
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+b. Nije definirano
+c. 4
+d. 1
+e. 2
+f. 6
+Točan odgovor je:
+4
+.
+Ukoliko želimo postojeću datoteku dat1.txt otvoriti za čitanje i pisanje, poziv funkcije
+open("dat1.txt", O_RDWR | O_CREAT | O_EXCL, 0644);
+kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. Poziv funkcije open sa navedenom kombinacijom argumenata rezultira greškom
+B. Nenegativni file deskriptor otvorene datoteke
+C. Pokazivač tipa FILE *fp koji pokazuje na otvorenu datoteku
+Točan odgovor je: Poziv funkcije open sa navedenom kombinacijom argumenata rezultira greškom.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 8
+b. 4
+c. Nije definirano
+d. 6
+e. 1
+f. 2
+Točan odgovor je:
+Nije definirano
+.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+ printf("Hello!\n");
+}
+int main() {
+ ispis();
+ return 0;
+}
+Naredbama
+gcc -c -Wall funkcija.c
+gcc -Wall funkcija.o -o fn
+dobiva se
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57447 4/6
+Pitanje 10
+Netočno
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 11
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Odaberite jedan ili više odgovora:
+A. objektna datoteka funkcija.o i izvršna datoteka fn
+B. objektna datoteka funkcija.o i izvršna datoteka a.out
+C. objektna datoteka ispis.o
+D. izvršna datoteka funkcija.o
+E. izvršna datoteka fn
+Točan odgovor je: objektna datoteka funkcija.o i izvršna datoteka fn.
+U Makefile datoteci:
+CC = /usr/bin/gcc
+FLAGS = -Wall -O3
+TARGETS = hello01 hello02 hello12 hello11 hello13
+default: hello13
+all: hello01 hello02 hello11 hello12 hello13
+hello01: hello.c
+ $(CC) $(FLAGS) hello.c -o hello01
+hello02: hello.o
+ $(CC) $(FLAGS) hello.o -o hello02
+hello11: hello1.c funkcija.c funkcija2.c
+ $(CC) $(FLAGS) hello1.c funkcija.c funkcija2.c \
+ -o hello11
+hello12: hello1.o funkcija.o funkcija2.o
+ $(CC) $(FLAGS) hello1.o funkcija.o funkcija2.o \
+ -o hello12
+hello13: hello1.o
+ $(CC) $(FLAGS) hello1.o libmoj.a -o hello13
+clean:
+ rm -f *.o *~ a.out $(TARGETS)
+.c.o:
+ $(CC) $(FLAGS) -c $<
+Odaberite jedan ili više odgovora:
+A. ravila hello02 i hello12 generiraju jednaku izvršnu datoteku
+B. Pravila hello11 i hello12 generiraju jednaku izvršnu datoteku
+C. Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku
+D. Pravila hello01 i hello02 generiraju jednaku izvršnu datoteku
+Točan odgovor je: Pravila hello01 i hello02 generiraju jednaku izvršnu datoteku, Pravila hello11 i hello12
+generiraju jednaku izvršnu datoteku.
+Nakon izvođenja koda
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int pid;
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57447 5/6
+Pitanje 12
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 13
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 14
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+ } else if (pid == 0) {
+ sleep(3);
+ return 0;
+ } else {
+ printf("%d\n", getppid());
+ return 0;
+ }
+ }
+ wait(NULL);
+ return 0;
+}
+broj koji se ispiše će biti:
+Odaberite jedan odgovor:
+a. 0
+b. veći od 1
+c. manji od 0
+d. Kod ima grešku i nemože se iskompajlirati ni pokrenuti
+e. 1
+Točan odgovor je:
+veći od 1
+.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+printf("Hello!\n");
+}
+Naredbom
+gcc -Wall funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+A. objektna datoteka ispis.o
+B. greška! Datoteka ne sadrži funkciju main
+C. objektna datoteka funkcija.o
+D. izvršna datoteka a.out
+E. objektna datoteka a.out
+Točan odgovor je: greška! Datoteka ne sadrži funkciju main.
+Funkcija creat kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. nenegativni cijeli broj (int), -1 u slučaju greške
+B. pokazivač tipa FILE *fp, NULL pokazivač u slučaju greške
+C. cijeli broj (int) veći od nula, 0 u slučaju greške
+Točan odgovor je: nenegativni cijeli broj (int), -1 u slučaju greške.
+Efekt izvođenja naredbe
+make -f dat1
+je:
+Odaberite jedan ili više odgovora:
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57447 6/6
+© 2018 Sva prava pridržana.
+Pitanje 15
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+A. Izvršava se prvo pravilo definirano u datoteci dat1
+B. Izvršava se pravilo dat1 definirano u datoteci Makefile
+C. Izvršava se pravilo dat1 definirano u datoteci dat1
+Točan odgovor je: Izvršava se prvo pravilo definirano u datoteci dat1.
+Poziv funkcije
+lseek(fd, 0, SEEK_CUR);
+na datoteci koja je otvorena na file deskriptoru fd nas pozicionira
+Odaberite jedan ili više odgovora:
+A. Na kraj datoteke
+B. Na početak datoteke
+C. Ne mijenja trenutnu poziciju
+Točan odgovor je: Ne mijenja trenutnu poziciju.
+Završi pregled
+09. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57463 1/5
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj - 23 Siječanj 2. Kolokvij
+Pitanje 1
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 2
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 3
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Započeto Četvrtak, 8 Veljača 2018, 11:24
+Završeno Četvrtak, 8 Veljača 2018, 11:44
+Proteklo vrijeme 20 min 6 s
+Ocjena 100,00 od maksimalno 120,00 (83%)
+U pravilu
+string1: string2
+ string3
+string3 predstavlja:
+Odaberite jedan ili više odgovora:
+A. Datoteke o kojima ovisi prevođenje
+B. Naziv pravila koji se koristi kod pozivanja make rutine
+C. Naredbe koje se izvršavaju kada se pozove pravilo
+D. Naziv izvršne datoteke koja nastaje izvođenjem pravila
+Točan odgovor je: Naredbe koje se izvršavaju kada se pozove pravilo.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+ printf("Hello!\n");
+}
+int main() {
+ ispis();
+ return 0;
+}
+Naredbama
+gcc -c -Wall funkcija.c
+gcc -Wall funkcija.o -o fn
+dobiva se
+Odaberite jedan ili više odgovora:
+A. objektna datoteka funkcija.o i izvršna datoteka fn
+B. objektna datoteka funkcija.o i izvršna datoteka a.out
+C. izvršna datoteka fn
+D. objektna datoteka ispis.o
+E. izvršna datoteka funkcija.o
+Točan odgovor je: objektna datoteka funkcija.o i izvršna datoteka fn.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+IVANA RUNJE ODJAVA
+09. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57463 2/5
+Pitanje 4
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 5
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+a. 1
+b. 4
+c. 8
+d. Nije definirano
+e. 2
+f. 6
+Točan odgovor je:
+4
+.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+printf("Hello!\n");
+}
+Naredbom
+gcc -Wall funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+A. greška! Datoteka ne sadrži funkciju main
+B. izvršna datoteka a.out
+C. objektna datoteka a.out
+D. objektna datoteka funkcija.o
+E. objektna datoteka ispis.o
+Točan odgovor je: greška! Datoteka ne sadrži funkciju main.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int status, pid;
+ struct rlimit rlim;
+ pid = fork();
+ if (pid == 0) { // child
+ rlim.rlim_cur = 5;
+ rlim.rlim_max = 5;
+ setrlimit(RLIMIT_CPU, &rlim);
+ execvp(argv[1], &argv[1]);
+ } else {
+ wait(&status);
+ }
+ return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+a. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida točno
+5 sekundi nakon pokretanja
+09. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57463 3/5
+Pitanje 6
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 7
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 8
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 9
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+b. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+d. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida najmanje 5 sekundi nakon pokretanja
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+.
+Naredbe opisane make pravilom mogu biti:
+Odaberite jedan ili više odgovora:
+A. Samo naredbe za prevođenje i povezivanje, tj. samo gcc
+B. Naredbe za prevođenje i povezivanje (gcc) ili naredba za brisanje suvišnih datoteka (rm)
+C. Mogu opisivati bilo koji postupak i uključivati proizvoljan skup naredbi
+Točan odgovor je: Mogu opisivati bilo koji postupak i uključivati proizvoljan skup naredbi.
+Želite obrisati sve datoteke u radnom direktoriju (direktorij u kojem se trenutno nalazite). Datoteke je
+potrebno obrisati na način da za svaku pojedinu datoteku sustav zatraži potvrdu brisanja.
+Naredba koju će te izvršiti je:
+Odaberite jedan ili više odgovora:
+A. rm -i *
+B. rm -f *
+C. rm -f *.*
+D. rm -i *.*
+Točan odgovor je: rm -i *.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i>3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 4
+b. 1
+c. 6
+d. 8
+e. Nije definirano
+f. 2
+Točan odgovor je:
+1
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 1
+09. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57463 4/5
+Pitanje 10
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 11
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 12
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 13
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+b. 6
+c. 2
+d. 8
+e. 4
+f. Nije definirano
+Točan odgovor je:
+Nije definirano
+.
+Poziv funkcije
+creat("dat1.txt", O_RDONLY)
+kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. Pokazivač tipa FILE *fp koji pokazuje na otvorenu datoteku
+B. Nenegativni file deskriptor otvorene datoteke
+C. Poziv funkcije creat sa navedenim argumentima je pogrešan
+Točan odgovor je: Poziv funkcije creat sa navedenim argumentima je pogrešan.
+Poziv funkcije
+lseek(fd, 0, SEEK_END);
+na datoteci koja je otvorena na file deskriptoru fd kao povratnu vrijednost ima
+Odaberite jedan ili više odgovora:
+A. Veličinu datoteke
+B. -1
+C. Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci
+Točan odgovor je: Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci,
+Veličinu datoteke.
+Ukoliko želimo postojeću datoteku dat1.txt otvoriti za čitanje i pisanje, poziv funkcije
+open("dat1.txt", O_RDWR | O_CREAT | O_EXCL, 0644);
+kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. Pokazivač tipa FILE *fp koji pokazuje na otvorenu datoteku
+B. Nenegativni file deskriptor otvorene datoteke
+C. Poziv funkcije open sa navedenom kombinacijom argumenata rezultira greškom
+Točan odgovor je: Poziv funkcije open sa navedenom kombinacijom argumenata rezultira greškom.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. 8
+c. 1
+d. 2
+e. 4
+09. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57463 5/5
+© 2018 Sva prava pridržana.
+Pitanje 14
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 15
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Točan odgovor je:
+4
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i>3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 1
+b. 6
+c. 8
+d. Nije definirano
+e. 4
+f. 2
+Točan odgovor je:
+1
+.
+Za simbolička prava pristupa zadana sa
+-rwxr-xr-x
+oktalni mod glasi:
+Odaberite jedan ili više odgovora:
+A. 777
+B. 755
+C. 744
+D. 666
+E. 644
+F. 655
+Točan odgovor je: 755.
+Završi pregled
+09/02/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57453 1/6
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj ‑ 23 Siječanj 2. Kolokvij
+Pitanje 1
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 2
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 3
+Točno
+Mark 10,00 out
+of 10,00
+Flag
+question
+Započeto Četvrtak, 8 Veljača 2018, 10:53
+Završeno Četvrtak, 8 Veljača 2018, 11:21
+Proteklo vrijeme 28 min 14 s
+Ocjena 80,00 od maksimalno 120,00 (67%)
+Naredbe opisane make pravilom mogu biti:
+Odaberite jedan ili više odgovora:
+A. Naredbe za prevođenje i povezivanje (gcc) ili naredba za brisanje suvišnih datoteka (rm)
+B. Mogu opisivati bilo koji postupak i uključivati proizvoljan skup naredbi
+C. Samo naredbe za prevođenje i povezivanje, tj. samo gcc
+Točan odgovor je: Mogu opisivati bilo koji postupak i uključivati proizvoljan skup naredbi.
+Efekt izvođenja naredbe
+make dat1
+je:
+Odaberite jedan ili više odgovora:
+A. Izvršava se pravilo dat1 definirano u datoteci Makefile
+B. Izvršava se prvo pravilo definirano u datoteci dat1
+C. Izvršava se pravilo dat1 definirano u datoteci dat1
+Točan odgovor je: Izvršava se pravilo dat1 definirano u datoteci Makefile.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+  int status, pid;
+  struct rlimit rlim;
+  pid = fork();
+  if (pid == 0) { // child
+    rlim.rlim_cur = 5;
+    rlim.rlim_max = 5;
+    setrlimit(RLIMIT_CPU, &rlim);
+    execvp(argv[1], &argv[1]);
+  } else {
+    argv[2] = NULL;
+    wait(&status);
+  }
+  return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+a. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje
+naredbe se prekida najmanje 5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje
+naredbe se prekida točno 5 sekundi nakon pokretanja
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+JURE GLASOVIĆ  ODJAVA
+09/02/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57453 2/6
+Pitanje 4
+Netočno
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 5
+Netočno
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 6
+Točno
+Mark 10,00 out
+of 10,00
+Flag
+question
+Pitanje 7
+d. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se
+prekida najmanje 5 sekundi nakon pokretanja
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe
+se prekida najmanje 5 sekundi nakon pokretanja
+.
+Postojeća prava pristupa za neku datoteku želite izmjeniti na način da grupi ukinete pravo
+čitanja. Ovo mežete izvršiti na slijedeći način:
+Odaberite jedan ili više odgovora:
+A. chmod 704 
+B. chmod og‑r
+C. chmod 744
+D. chmod a‑r
+E. chmod g‑r
+F. chmod 600 
+Točan odgovor je: chmod g‑r .
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis﴾﴿ {
+  printf﴾"Hello!\n"﴿;
+}
+int main﴾﴿ {
+  ispis﴾﴿;
+  return 0;
+}
+Naredbom
+gcc ­Wall funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka funkcija.o
+B. izvršna datoteka funkcija
+C. izvršna datoteka a.out
+D. objektna datoteka ispis.o
+E. objektna datoteka funkcija.o
+Točan odgovor je: izvršna datoteka a.out.
+Poziv funkcije
+creat("dat1.txt", O_RDONLY)
+kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. Pokazivač tipa FILE *fp koji pokazuje na otvorenu datoteku
+B. Poziv funkcije creat sa navedenim argumentima je pogrešan
+C. Nenegativni file deskriptor otvorene datoteke
+Točan odgovor je: Poziv funkcije creat sa navedenim argumentima je pogrešan.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+09/02/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57453 3/6
+Točno
+Mark 10,00 out
+of 10,00
+Flag
+question
+Pitanje 8
+Točno
+Mark 10,00 out
+of 10,00
+Flag
+question
+Pitanje 9
+Točno
+Mark 5,00 out of
+5,00
+int i, pid=0;
+for ﴾i=0; i<3; i++﴿ {
+  if﴾pid == 0﴿
+    pid = fork﴾﴿;
+}
+Odaberite jedan ili više odgovora:
+a. 1
+b. 6
+c. 4
+d. 2
+e. 8
+f. Nije definirano
+Točan odgovor je:
+4
+.
+Nakon izvođenja koda
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+  int pid;
+  if ((pid=fork()) == ­1) {
+    perror("fork");
+    return 1;
+  } else if (pid == 0) {
+    if ((pid=fork()) == ­1) {
+      perror("fork");
+      return 1;
+    } else if (pid == 0) {
+      sleep(3);
+      return 0;
+    } else {
+      printf("%d\n", getppid());
+      return 0;
+    }
+  }
+  wait(NULL);
+  return 0;
+}
+broj koji se ispiše će biti:
+Odaberite jedan odgovor:
+a. 1
+b. manji od 0
+c. 0
+d. Kod ima grešku i nemože se iskompajlirati ni pokrenuti
+e. veći od 1
+Točan odgovor je:
+veći od 1
+.
+Rezultat izvođenja naredbe
+gcc ­Wall ­O3 fn.c ­o fn.o
+je
+09/02/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57453 4/6
+Flag
+question
+Pitanje 10
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 11
+Netočno
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 12
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 13
+Točno
+Odaberite jedan ili više odgovora:
+A. objektna datoteka fn
+B. izvršna datoteka a.out
+C. objektna datoteka fn.o
+D. izvršna datoteka fn.o
+E. izvršna datoteka fn
+Točan odgovor je: izvršna datoteka fn.o.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for ﴾i=0; i<3; i++﴿ {
+  if﴾pid != 0﴿
+    pid = fork﴾﴿;
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. 8
+c. 2
+d. Nije definirano
+e. 4
+f. 1
+Točan odgovor je:
+Nije definirano
+.
+Naredbom 
+cd ./..
+Odaberite jedan ili više odgovora:
+A. Ne mijenjamo radni direktorij
+B. Mijenjamo radni direktorij
+Točan odgovor je: Mijenjamo radni direktorij.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for ﴾i=0; i<3; i++﴿ {
+  if﴾pid != 0﴿
+    pid = fork﴾﴿;
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. 1
+c. 2
+d. 4
+e. Nije definirano
+f. 8
+Točan odgovor je:
+Nije definirano
+.
+Funkcija creat kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+09/02/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57453 5/6
+© 2018 Sva prava pridržana.
+Mark 10,00 out
+of 10,00
+Flag
+question
+Pitanje 14
+Djelomično točno
+Mark 5,00 out of
+10,00
+Flag
+question
+Pitanje 15
+Točno
+Mark 10,00 out
+of 10,00
+Flag
+question
+A. cijeli broj (int) veći od nula, 0 u slučaju greške
+B. nenegativni cijeli broj (int), ‑1 u slučaju greške
+C. pokazivač tipa FILE *fp, NULL pokazivač u slučaju greške
+Točan odgovor je: nenegativni cijeli broj (int), ‑1 u slučaju greške.
+Poziv funkcije
+lseek(fd, 0, SEEK_END);
+na datoteci koja je otvorena na file deskriptoru fd kao povratnu vrijednost ima
+Odaberite jedan ili više odgovora:
+A. Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci
+B. Veličinu datoteke
+C. ‑1
+Točan odgovor je: Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u
+datoteci, Veličinu datoteke.
+Nakon izvođenja koda
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+  int pid;
+  if ((pid=fork()) == ­1) {
+    perror("fork");
+    return 1;
+  } else if (pid == 0) {
+    if ((pid=fork()) == ­1) {
+      perror("fork");
+      return 1;
+    } else if (pid == 0) {
+      sleep(3);
+      printf("%d\n", getppid());
+      return 0;
+    } else
+      return 0;
+  }
+  wait(NULL);
+  return 0;
+}
+broj koji se ispiše će biti:
+Odaberite jedan odgovor:
+a. veći od 1
+b. manji od 0
+c. 1
+d. 0
+e. Kod ima grešku i nemože se iskompajlirati ni pokrenuti
+Točan odgovor je:
+1
+.
+Završi pregled
+09/02/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57453 6/6
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57457 1/6
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj - 23 Siječanj 2. Kolokvij
+Pitanje 1
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 2
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 3
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 4
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Započeto Četvrtak, 8 Veljača 2018, 11:23
+Završeno Četvrtak, 8 Veljača 2018, 11:39
+Proteklo vrijeme 15 min 23 s
+Ocjena 120,00 od maksimalno 120,00 (100%)
+Poziv funkcije
+lseek(fd, 0, SEEK_SET);
+na datoteci koja je otvorena na file deskriptoru fd nas pozicionira
+Odaberite jedan ili više odgovora:
+A. Ne mijenja trenutnu poziciju
+B. Na kraj datoteke
+C. Na početak datoteke
+Točan odgovor je: Na početak datoteke.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 2
+b. 8
+c. 4
+d. 6
+e. Nije definirano
+f. 1
+Točan odgovor je:
+4
+.
+Izlazne datoteke za gcc mogu biti:
+Odaberite jedan ili više odgovora:
+A. datoteke izvršnog koda
+B. arhive objektnog koda (libovi) *.a
+C. objektne datoteke *.o
+D. C++ datoteke izvornog koda *.cc
+E. C datoteke izvornog koda *.c
+Točan odgovor je: objektne datoteke *.o, datoteke izvršnog koda.
+Efekt izvođenja naredbe
+make -f dat1 dat2
+je:
+Odaberite jedan ili više odgovora:
+A. Izvršava se pravilo dat2 definirano u datoteci dat1
+B. Izvršavaju se pravila dat1 i dat2 redom kojim su navedeni
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+JELENA PEKO ODJAVA
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57457 2/6
+Pitanje 5
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 6
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 7
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+C. Izvršava se pravilo dat1 definirano u datoteci dat2
+Točan odgovor je: Izvršava se pravilo dat2 definirano u datoteci dat1.
+Naredba
+write(fd, buf, 100);
+u datoteke otvorene na file deskriptoru fd upisuje
+Odaberite jedan ili više odgovora:
+A. najviše 100 znakova
+B. točno 100 znakova
+C. najmanje 100 znakova
+Točan odgovor je: najviše 100 znakova.
+Nakon izvođenja koda
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int pid;
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ sleep(3);
+ return 0;
+ } else {
+ printf("%d\n", getppid());
+ return 0;
+ }
+ }
+ wait(NULL);
+ return 0;
+}
+broj koji se ispiše će biti:
+Odaberite jedan odgovor:
+a. 1
+b. veći od 1
+c. 0
+d. Kod ima grešku i nemože se iskompajlirati ni pokrenuti
+e. manji od 0
+Točan odgovor je:
+veći od 1
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57457 3/6
+Pitanje 8
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 9
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 10
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Odaberite jedan ili više odgovora:
+a. 4
+b. 1
+c. 6
+d. 8
+e. Nije definirano
+f. 2
+Točan odgovor je:
+Nije definirano
+.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+ printf("Hello!\n");
+}
+int main() {
+ ispis();
+ return 0;
+}
+Naredbom
+gcc -Wall funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+A. objektna datoteka ispis.o
+B. izvršna datoteka a.out
+C. objektna datoteka funkcija.o
+D. izvršna datoteka funkcija
+E. izvršna datoteka funkcija.o
+Točan odgovor je: izvršna datoteka a.out.
+Postojeća prava pristupa za neku datoteku želite izmjeniti na način da grupi ukinete pravo čitanja. Ovo
+mežete izvršiti na slijedeći način:
+Odaberite jedan ili više odgovora:
+A. chmod g-r 
+B. chmod a-r
+C. chmod 744
+D. chmod 600
+E. chmod 704
+F. chmod og-r
+Točan odgovor je: chmod g-r .
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 1
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57457 4/6
+Pitanje 11
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 12
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 13
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 14
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+b. 4
+c. 8
+d. 2
+e. 6
+Točan odgovor je:
+4
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 4
+b. 2
+c. 6
+d. 1
+e. 8
+f. Nije definirano
+Točan odgovor je:
+Nije definirano
+.
+Poziv funkcije
+creat("dat1.txt", O_RDONLY)
+kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. Pokazivač tipa FILE *fp koji pokazuje na otvorenu datoteku
+B. Poziv funkcije creat sa navedenim argumentima je pogrešan
+C. Nenegativni file deskriptor otvorene datoteke
+Točan odgovor je: Poziv funkcije creat sa navedenim argumentima je pogrešan.
+Želite obrisati direktorij /home/user1/unix/tmp
+Pod pretpostavkom da je vaš radni direktorij (direktorij u kojem se trenutno nalazite) /home/user1,
+potrebno je izvršiti slijedeću naredbu:
+Odaberite jedan ili više odgovora:
+A. rm /home/usrer1/unix/tmp
+B. rmdir ./unix/tmp
+C. rmdir unix/tmp
+D. rmdir ../tmp
+E. rm unix/tmp
+Točan odgovor je: rmdir unix/tmp, rmdir ./unix/tmp.
+U Makefile datoteci:
+CC = /usr/bin/gcc
+FLAGS = -Wall -O3
+TARGETS = hello01 hello02 hello12 hello11 hello13
+default: hello13
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57457 5/6
+Pitanje 15
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+all: hello01 hello02 hello11 hello12 hello13
+hello01: hello.c
+ $(CC) $(FLAGS) hello.c -o hello01
+hello02: hello1.c funkcija.c funkcija2.c
+ $(CC) $(FLAGS) hello1.c funkcija.c funkcija2.c \
+ -o hello02
+hello11: hello.o
+ $(CC) $(FLAGS) hello.o -o hello11
+hello12: hello1.o funkcija.o funkcija2.o
+ $(CC) $(FLAGS) hello1.o funkcija.o funkcija2.o \
+ -o hello12
+hello13: hello1.o
+ $(CC) $(FLAGS) hello1.o libmoj.a -o hello13
+clean:
+ rm -f *.o *~ a.out $(TARGETS)
+.c.o:
+ $(CC) $(FLAGS) -c $<
+Odaberite jedan ili više odgovora:
+A. Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku
+B. Pravila hello01 i hello02 generiraju jednaku izvršnu datoteku
+C. ravila hello02 i hello12 generiraju jednaku izvršnu datoteku
+D. Pravila hello11 i hello12 generiraju jednaku izvršnu datoteku
+Točan odgovor je: Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku, ravila hello02 i hello12
+generiraju jednaku izvršnu datoteku.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int status, pid;
+ struct rlimit rlim;
+ pid = fork();
+ if (pid == 0) { // child
+ execvp(argv[1], &argv[1]);
+ } else {
+ rlim.rlim_cur = 5;
+ rlim.rlim_max = 5;
+ setrlimit(RLIMIT_CPU, &rlim);
+ wait(&status);
+ }
+ return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+a. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Vrijeme izvršavanja naredbe nije
+ograničeno
+d. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Vrijeme izvršavanja
+naredbe nije ograničeno
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57457 6/6
+© 2018 Sva prava pridržana.
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Vrijeme izvršavanja naredbe nije
+ograničeno
+.
+Završi pregled
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57438 1/6
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj - 23 Siječanj 2. Kolokvij
+Pitanje 1
+Djelomično točno
+Mark 8,00 out of
+10,00
+Flag
+question
+Pitanje 2
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 3
+Netočno
+Započeto Četvrtak, 8 Veljača 2018, 10:15
+Završeno Četvrtak, 8 Veljača 2018, 10:45
+Proteklo vrijeme 29 min 42 s
+Ocjena 64,00 od maksimalno 120,00 (53%)
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i>3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 1
+b. Nije definirano
+c. 2
+d. 8
+e. 4
+f. 6
+Točan odgovor je:
+1
+.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+ printf("Hello!\n");
+}
+int main() {
+ ispis();
+ return 0;
+}
+Naredbama
+gcc -c -Wall funkcija.c
+gcc -Wall funkcija.o -o fn
+dobiva se
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka funkcija.o
+B. izvršna datoteka fn
+C. objektna datoteka funkcija.o i izvršna datoteka a.out
+D. objektna datoteka ispis.o
+E. objektna datoteka funkcija.o i izvršna datoteka fn
+Točan odgovor je: objektna datoteka funkcija.o i izvršna datoteka fn.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+KRISTIAN MILIČIĆ ODJAVA
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57438 2/6
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 4
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 5
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int status, pid;
+ struct rlimit rlim;
+ argv[2] = NULL;
+ pid = fork();
+ if (pid == 0) { // child
+ execvp(argv[1], &argv[1]);
+ } else {
+ rlim.rlim_cur = 5;
+ rlim.rlim_max = 5;
+ setrlimit(RLIMIT_CPU, &rlim);
+ wait(&status);
+ }
+ return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+a. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Vrijeme izvršavanja naredbe nije
+ograničeno
+d. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Vrijeme izvršavanja
+naredbe nije ograničeno
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Vrijeme izvršavanja naredbe nije
+ograničeno
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i<3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 2
+b. 4
+c. 8
+d. 1
+e. 6
+Točan odgovor je:
+4
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 4
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57438 3/6
+Pitanje 6
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 7
+Djelomično točno
+Mark 8,00 out of
+10,00
+Flag
+question
+Pitanje 8
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 9
+Djelomično točno
+Mark 8,00 out of
+10,00
+Flag
+question
+b. 1
+c. 2
+d. 8
+e. 6
+Točan odgovor je:
+4
+.
+Za primjenu naredbe chmod rekurzivno (na direktorij i sve datoteke i direktorije u njemu) koristimo opciju:
+Odaberite jedan ili više odgovora:
+A. -r
+B. -R
+Točan odgovor je: -R.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 2
+b. Nije definirano
+c. 8
+d. 6
+e. 1
+f. 4
+Točan odgovor je:
+Nije definirano
+.
+Poziv funkcije
+lseek(fd, 0, SEEK_SET);
+na datoteci koja je otvorena na file deskriptoru fd nas pozicionira
+Odaberite jedan ili više odgovora:
+A. Na kraj datoteke
+B. Na početak datoteke
+C. Ne mijenja trenutnu poziciju
+Točan odgovor je: Na početak datoteke.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 8
+b. Nije definirano
+c. 4
+d. 2
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57438 4/6
+Pitanje 10
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 11
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+e. 6
+f. 1
+Točan odgovor je:
+Nije definirano
+.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+printf("Hello!\n");
+}
+int main() {
+ispis();
+return 0;
+}
+Naredbom
+gcc -c -Wall funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka funkcija.o
+B. izvršna datoteka funkcija
+C. izvršna datoteka a.out
+D. objektna datoteka funkcija.o
+E. objektna datoteka ispis.o
+Točan odgovor je: objektna datoteka funkcija.o.
+#define BUFFSIZE 256
+char buf[BUFFSIZE];
+int main() {
+int n, fdin, fdout;
+umask(S_IRGRP | S_IROTH);
+fdout = open("dat.txt", O_WRONLY | O_CREAT,\
+S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | \ 
+S_IROTH);
+if (fdout == -1) {
+perror("open");
+exit(1);
+} 
+fdin = STDIN_FILENO;
+while ((n=read(fdin, buf, BUFFSIZE)) > 0) {
+write(fdout, buf, n);
+}
+if (n < 0)
+perror("read");
+close(fdout);
+exit(0);
+}
+Kao rezultat izvršavanja stvara datoteku dat.txt. Ova datoteka će imati slijedeća prava pristupa: 
+Odaberite jedan ili više odgovora:
+A. Pravo čitanja i pisanja za korisnika, pravo pisanja za grupu, bez prava za ostale
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57438 5/6
+Pitanje 12
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 13
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 14
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+B. Pravo čitanja i pisanja za korisnika, pravo čitanja i pisanja za grupu, pravo čitanja za ostale
+C. Pravo čitanja i pisanja za korisnika, pravo čitanja za grupu, bez prava za ostale
+Točan odgovor je: Pravo čitanja i pisanja za korisnika, pravo pisanja za grupu, bez prava za ostale.
+Naredba
+read(fd, buf, 100);
+iz datoteke otvorene na file deskriptoru fd čita
+Odaberite jedan ili više odgovora:
+A. točno 100 znakova
+B. najmanje 100 znakova
+C. najviše 100 znakova
+Točan odgovor je: najviše 100 znakova.
+U Makefile datoteci:
+CC = /usr/bin/gcc
+FLAGS = -Wall -O3
+TARGETS = hello01 hello02 hello12 hello11 hello13
+default: hello13
+all: hello01 hello02 hello11 hello12 hello13
+hello01: hello.c
+ $(CC) $(FLAGS) hello.c -o hello01
+hello02: hello1.c funkcija.c funkcija2.c
+ $(CC) $(FLAGS) hello1.c funkcija.c funkcija2.c \
+ -o hello02
+hello11: hello.o
+ $(CC) $(FLAGS) hello.o -o hello11
+hello12: hello1.o funkcija.o funkcija2.o
+ $(CC) $(FLAGS) hello1.o funkcija.o funkcija2.o \
+ -o hello12
+hello13: hello1.o
+ $(CC) $(FLAGS) hello1.o libmoj.a -o hello13
+clean:
+ rm -f *.o *~ a.out $(TARGETS)
+.c.o:
+ $(CC) $(FLAGS) -c $<
+Odaberite jedan ili više odgovora:
+A. ravila hello02 i hello12 generiraju jednaku izvršnu datoteku
+B. Pravila hello11 i hello12 generiraju jednaku izvršnu datoteku
+C. Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku
+D. Pravila hello01 i hello02 generiraju jednaku izvršnu datoteku
+Točan odgovor je: Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku, ravila hello02 i hello12
+generiraju jednaku izvršnu datoteku.
+U pravilu
+string1: string2
+ string3
+string1 predstavlja:
+Odaberite jedan ili više odgovora:
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57438 6/6
+© 2018 Sva prava pridržana.
+Pitanje 15
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+A. Datoteke o kojima ovisi prevođenje
+B. Naredbe koje se izvršavaju kada se pozove pravilo
+C. Naziv pravila koji se koristi kod pozivanja make rutine
+D. Naziv izvršne datoteke koja nastaje izvođenjem pravila
+Točan odgovor je: Naziv pravila koji se koristi kod pozivanja make rutine.
+Datoteci dat1.txt koja se nalazi u radnom direktoriju (direktorij u kojem se trenutno nalazite) želite
+promijeniti ime u dat2.txt
+Ovo je moguće napraviti slijedećim naredbama:
+Odaberite jedan ili više odgovora:
+A. rm dat2.txt dat1.txt
+B. mv dat1.txt dat2.txt
+C. mv dat2.txt dat1.txt
+D. chname dat2.txt dat1.txt
+E. rm dat1.txt dat2.txt
+Točan odgovor je: mv dat1.txt dat2.txt.
+Završi pregled
+
+
+
+
+
+
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57435 1/6
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj - 23 Siječanj 2. Kolokvij
+Pitanje 1
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 2
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 3
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Započeto Četvrtak, 8 Veljača 2018, 10:15
+Završeno Četvrtak, 8 Veljača 2018, 10:37
+Proteklo vrijeme 21 min 59 s
+Ocjena 110,00 od maksimalno 120,00 (92%)
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. Nije definirano
+b. 2
+c. 4
+d. 8
+e. 6
+f. 1
+Točan odgovor je:
+Nije definirano
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. Nije definirano
+b. 4
+c. 6
+d. 2
+e. 8
+f. 1
+Točan odgovor je:
+Nije definirano
+.
+U pravilu
+string1: string2
+ string3
+string3 predstavlja:
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+MARIN ČERINA ODJAVA
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57435 2/6
+Pitanje 4
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 5
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Odaberite jedan ili više odgovora:
+A. Naziv pravila koji se koristi kod pozivanja make rutine
+B. Naziv izvršne datoteke koja nastaje izvođenjem pravila
+C. Naredbe koje se izvršavaju kada se pozove pravilo
+D. Datoteke o kojima ovisi prevođenje
+Točan odgovor je: Naredbe koje se izvršavaju kada se pozove pravilo.
+#define BUFFSIZE 256
+char buf[BUFFSIZE];
+int main() {
+int n, fdin, fdout;
+fdin = open("dat.txt", O_RDONLY);
+if (fdin == -1) {
+perror("open");
+exit(-1);
+}
+fdout = STDOUT_FILENO;
+while((n=read(fdin, buf, BUFFSIZE)) > 0) {
+if (write(fdout, buf, n) != n)
+perror("write");
+}
+if (n<0)
+perror("read");
+exit(0);
+}
+Navedeni program ima slijedeću funkcionalnost:
+Odaberite jedan ili više odgovora:
+A. Sve što korisnik upiše putem tipkovnice, program još jednom ispisuje.
+B. Sve što korisnik utipka putem tipkovnice upisuje u datoteku dat.txt
+C. Ispisuje sadržaj datoteke dat.txt
+Točan odgovor je: Ispisuje sadržaj datoteke dat.txt.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i>3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. Nije definirano
+b. 2
+c. 6
+d. 4
+e. 8
+f. 1
+Točan odgovor je:
+1
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57435 3/6
+Pitanje 6
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 7
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 8
+Točno
+.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int status, pid;
+ struct rlimit rlim;
+ pid = fork();
+ if (pid == 0) { // child
+ rlim.rlim_cur = 5;
+ rlim.rlim_max = 5;
+ setrlimit(RLIMIT_CPU, &rlim);
+ execvp(argv[1], &argv[1]);
+ } else {
+ argv[2] = NULL;
+ wait(&status);
+ }
+ return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+a. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida najmanje 5 sekundi nakon pokretanja
+d. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+točno 5 sekundi nakon pokretanja
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+.
+Rezultat izvođenja naredbe
+gcc -Wall -c -O3 fn.c
+je
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka fn.o
+B. izvršna datoteka a.out
+C. objektna datoteka fn.o
+D. izvršna datoteka fn
+E. objektna datoteka fn
+Točan odgovor je: objektna datoteka fn.o.
+Naredbom 
+cd ~
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57435 4/6
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 9
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 10
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 11
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 12
+Točno
+Odaberite jedan ili više odgovora:
+A. Pozicioniramo se u vlastiti home direktorij
+B. Pozicioniramo se u direktorij ~ koji se nalazi u direktoriju u kojem smo se nalazili prije pozivanja
+naredbe
+C. Pozicionioramo se u direktorij /
+D. Pozicioniramo se u direktorij /home
+Točan odgovor je: Pozicioniramo se u vlastiti home direktorij.
+Za simbolička prava pristupa zadana sa
+-rwxr--r-x
+oktalni mod glasi:
+Odaberite jedan ili više odgovora:
+A. 644
+B. 744
+C. 666
+D. 645
+E. 754
+F. 745
+Točan odgovor je: 745.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 4
+b. 6
+c. 1
+d. 8
+e. 2
+Točan odgovor je:
+4
+.
+Funkcija close kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. Nula, -1 u slučaju greške
+B. File deskriptor zatvorene datoteke, 0 u slučaju greške
+C. File deskriptor zatvorene datoteke, -1 u slučaju greške
+Točan odgovor je: Nula, -1 u slučaju greške.
+Funkcija open kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57435 5/6
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 13
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 14
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 15
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+A. cijeli broj (int) veći od nula, 0 u slučaju greške
+B. nenegativni cijeli broj (int), -1 u slučaju greške
+C. pokazivač tipa FILE *fp, NULL pokazivač u slučaju greške
+Točan odgovor je: nenegativni cijeli broj (int), -1 u slučaju greške.
+Ulazne datoteke za gcc mogu biti:
+Odaberite jedan ili više odgovora:
+A. C datoteke izvornog koda *.c
+B. C++ datoteke izvornog koda *.cc
+C. arhive objektnog koda (libovi) *.a
+D. objektne datoteke *.o
+E. datoteke izvršnog koda
+Točan odgovor je: C datoteke izvornog koda *.c, C++ datoteke izvornog koda *.cc, objektne datoteke *.o,
+arhive objektnog koda (libovi) *.a.
+Efekt izvođenja naredbe
+make -f dat1 dat2
+je:
+Odaberite jedan ili više odgovora:
+A. Izvršava se pravilo dat2 definirano u datoteci dat1
+B. Izvršava se pravilo dat1 definirano u datoteci dat2
+C. Izvršavaju se pravila dat1 i dat2 redom kojim su navedeni
+Točan odgovor je: Izvršava se pravilo dat2 definirano u datoteci dat1.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 8
+b. Nije definirano
+c. 2
+d. 6
+e. 1
+f. 4
+Točan odgovor je:
+4
+.
+Završi pregled
+2/9/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57435 6/6
+© 2018 Sva prava pridržana.
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57448 1/6
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj - 23 Siječanj 2. Kolokvij
+Pitanje 1
+Netočno
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 2
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 3
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Započeto Četvrtak, 8 Veljača 2018, 10:51
+Završeno Četvrtak, 8 Veljača 2018, 11:19
+Proteklo vrijeme 28 min 6 s
+Ocjena 66,67 od maksimalno 120,00 (56%)
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+ printf("Hello!\n");
+}
+Naredbom
+gcc -Wall -c funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+A. objektna datoteka funkcija.o
+B. izvršna datoteka a.out
+C. greška! Datoteka ne sadrži funkciju main
+D. objektna datoteka a.out
+E. objektna datoteka ispis.o
+Točan odgovor je: objektna datoteka funkcija.o.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i<3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. 2
+c. 4
+d. 8
+e. 1
+Točan odgovor je:
+4
+.
+Naredba 
+tar -xf arhiva.tar
+Odaberite jedan ili više odgovora:
+A. Raspakira sadržaj arhive arhiva.tar
+B. Javlja grešku pošto nisu zadane datoteke koje treba pohraniti u arhivu
+Točan odgovor je: Raspakira sadržaj arhive arhiva.tar.
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+MARIO GOJEVIĆ ODJAVA
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57448 2/6
+Pitanje 4
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Pitanje 5
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 6
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 7
+Netočno
+Mark 0,00 out of
+5,00
+Flag
+question
+Pitanje 8
+Točno
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i>3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 2
+b. 6
+c. 4
+d. 8
+e. Nije definirano
+f. 1
+Točan odgovor je:
+1
+.
+Naredba
+read(fd, buf, 100);
+iz datoteke otvorene na file deskriptoru fd čita
+Odaberite jedan ili više odgovora:
+A. točno 100 znakova
+B. najmanje 100 znakova
+C. najviše 100 znakova
+Točan odgovor je: najviše 100 znakova.
+Poziv funkcije
+lseek(fd, 0, SEEK_CUR);
+na datoteci koja je otvorena na file deskriptoru fd nas pozicionira
+Odaberite jedan ili više odgovora:
+A. Ne mijenja trenutnu poziciju
+B. Na početak datoteke
+C. Na kraj datoteke
+Točan odgovor je: Ne mijenja trenutnu poziciju.
+Rezultat izvođenja naredbe
+gcc -Wall -O3 fn.c
+je
+Odaberite jedan ili više odgovora:
+A. objektna datoteka fn
+B. izvršna datoteka fn.o
+C. izvršna datoteka a.out
+D. objektna datoteka fn.o
+E. izvršna datoteka fn
+Točan odgovor je: izvršna datoteka a.out.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57448 3/6
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 9
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 10
+Nije odgovoreno
+Marked out of
+10,00
+Flag
+question
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. Nije definirano
+b. 2
+c. 6
+d. 1
+e. 8
+f. 4
+Točan odgovor je:
+4
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 4
+b. 2
+c. 8
+d. Nije definirano
+e. 6
+f. 1
+Točan odgovor je:
+Nije definirano
+.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int status, pid;
+ struct rlimit rlim;
+ pid = fork();
+ if (pid == 0) { // child
+ rlim.rlim_cur = 5;
+ rlim.rlim_max = 5;
+ setrlimit(RLIMIT_CPU, &rlim);
+ execvp(argv[1], &argv[1]);
+ } else {
+ argv[2] = NULL;
+ wait(&status);
+ }
+ return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57448 4/6
+Pitanje 11
+Nije odgovoreno
+Marked out of
+10,00
+Flag
+question
+Pitanje 12
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+a. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+d. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+točno 5 sekundi nakon pokretanja
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+.
+Nakon izvođenja koda
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int pid;
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ sleep(3);
+ return 0;
+ } else {
+ printf("%d\n", getppid());
+ return 0;
+ }
+ }
+ wait(NULL);
+ return 0;
+}
+broj koji se ispiše će biti:
+Odaberite jedan odgovor:
+a. manji od 0
+b. 0
+c. Kod ima grešku i nemože se iskompajlirati ni pokrenuti
+d. veći od 1
+e. 1
+Točan odgovor je:
+veći od 1
+.
+Efekt izvođenja naredbe
+make -f dat1
+je:
+Odaberite jedan ili više odgovora:
+A. Izvršava se pravilo dat1 definirano u datoteci dat1
+B. Izvršava se prvo pravilo definirano u datoteci dat1
+C. Izvršava se pravilo dat1 definirano u datoteci Makefile
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57448 5/6
+Pitanje 13
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 14
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 15
+Djelomično točno
+Mark 1,67 out of
+5,00
+Flag
+question
+Točan odgovor je: Izvršava se prvo pravilo definirano u datoteci dat1.
+Funkcija creat kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. pokazivač tipa FILE *fp, NULL pokazivač u slučaju greške
+B. cijeli broj (int) veći od nula, 0 u slučaju greške
+C. nenegativni cijeli broj (int), -1 u slučaju greške
+Točan odgovor je: nenegativni cijeli broj (int), -1 u slučaju greške.
+U Makefile datoteci:
+CC = /usr/bin/gcc
+FLAGS = -Wall -O3
+TARGETS = hello01 hello02 hello12 hello11 hello13
+default: hello13
+all: hello01 hello02 hello11 hello12 hello13
+hello01: hello.c
+ $(CC) $(FLAGS) hello.c -o hello01
+hello02: hello.o
+ $(CC) $(FLAGS) hello.o -o hello02
+hello11: hello1.c funkcija.c funkcija2.c
+ $(CC) $(FLAGS) hello1.c funkcija.c funkcija2.c \
+ -o hello11
+hello12: hello1.o funkcija.o funkcija2.o
+ $(CC) $(FLAGS) hello1.o funkcija.o funkcija2.o \
+ -o hello12
+hello13: hello1.o
+ $(CC) $(FLAGS) hello1.o libmoj.a -o hello13
+clean:
+ rm -f *.o *~ a.out $(TARGETS)
+.c.o:
+ $(CC) $(FLAGS) -c $<
+Odaberite jedan ili više odgovora:
+A. Pravila hello01 i hello02 generiraju jednaku izvršnu datoteku
+B. Pravila hello11 i hello12 generiraju jednaku izvršnu datoteku
+C. Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku
+D. ravila hello02 i hello12 generiraju jednaku izvršnu datoteku
+Točan odgovor je: Pravila hello01 i hello02 generiraju jednaku izvršnu datoteku, Pravila hello11 i hello12
+generiraju jednaku izvršnu datoteku.
+Na direktoriju programi koji se nalazi u radnom direktoriju (direktorij u kojem se trenutno nalazimo)
+želimo svim korisnicima sustava dati mogućnost pregleda sadržaja direktorija. Ovo ćemo ostvariti
+slijedećom naredbom:
+Odaberite jedan ili više odgovora:
+A. chmod guo+r programi
+B. chmod a+r programi
+C. chmod 744 programi
+D. chmod ug+r programi
+Točan odgovor je: chmod a+r programi, chmod guo+r programi, chmod 744 programi.
+08. 02. 2018. 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57448 6/6
+© 2018 Sva prava pridržana.
+Završi pregled
+
+
+
+
+
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57436 1/6
+2. Kolokvij
+Naslovnica Moji kolegiji PZU 17 Siječanj - 23 Siječanj 2. Kolokvij
+Pitanje 1
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 2
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 3
+Točno
+Mark 10,00 out of
+10,00
+Započeto Četvrtak, 8 Veljača 2018, 10:15
+Završeno Četvrtak, 8 Veljača 2018, 10:37
+Proteklo vrijeme 21 min 33 s
+Ocjena 100,00 od maksimalno 120,00 (83%)
+Naredbom 
+cd ../.
+Odaberite jedan ili više odgovora:
+A. Pozicionioramo se u direktorij /
+B. Ostajemo u istom direktoriju
+C. Penjemo se korak unatrag u datotečnom stablu (radni direktorij postaje direktorij u kojem se nalazi
+tekući radni direktorij)
+D. Pozicioniramo se u direktorij ~ koji se nalazi u direktoriju u kojem smo se nalazili prije pozivanja
+naredbe
+Točan odgovor je: Penjemo se korak unatrag u datotečnom stablu (radni direktorij postaje direktorij u
+kojem se nalazi tekući radni direktorij).
+U Makefile datoteci:
+CC = /usr/bin/gcc
+FLAGS = -Wall -O3
+TARGETS = prog1 prog2
+default: prog2
+all: prog1 prog2
+prog1: glavni.c funkcija.c funkcija2.c
+ $(CC) $(FLAGS) hello1.c funkcija.c funkcija2.c \
+ -o glavni1
+prog2: glavni.o funkcija.o funkcija2.o
+ $(CC) $(FLAGS) hello1.o funkcija.o funkcija2.o \
+ -o glavni2
+clean:
+ rm -f *.o *~ a.out $(TARGETS)
+.c.o:
+ $(CC) $(FLAGS) -c $<
+Pozivanjem pravila prog2 nastaju slijedeće datoteke:
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka glavni2 i objektne datoteke glavni.o, funkcija.o, funkcija2.o
+B. samo izvršna datoteka prog2
+C. samo izvršna datoteka glavni2
+D. izvršna datoteke prog2 i objektne datoteke glavni.o, funkcija.o, funkcija2.o
+Točan odgovor je: izvršna datoteka glavni2 i objektne datoteke glavni.o, funkcija.o, funkcija2.o.
+Poziv funkcije
+lseek(fd, 0, SEEK_SET);
+na datoteci koja je otvorena na file deskriptoru fd kao povratnu vrijednost ima
+Odaberite jedan ili više odgovora:
+NAVIGACIJA U TESTU
+Završi pregled
+1 2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+STJEPAN BALIĆ ODJAVA
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57436 2/6
+Flag
+question
+Pitanje 4
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 5
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+A. Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci
+B. Nula
+C. Veličinu datoteke
+Točan odgovor je: Nula, Novi file offset (poziciju od koje kreće slijedeća ulazno/izlazna operacija) u datoteci.
+Proučite kod:
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int status, pid;
+ struct rlimit rlim;
+ pid = fork();
+ if (pid == 0) { // child
+ rlim.rlim_cur = 5;
+ rlim.rlim_max = 5;
+ setrlimit(RLIMIT_CPU, &rlim);
+ execvp(argv[1], &argv[1]);
+ } else {
+ argv[2] = NULL;
+ wait(&status);
+ }
+ return 0;
+}
+Koje je funkcionalnost danog programa?
+Odaberite jedan ili više odgovora:
+a. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida točno 5 sekundi nakon pokretanja
+b. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+c. Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se
+prekida najmanje 5 sekundi nakon pokretanja
+d. Pokreće naredbu koju zadaje korisnik, a koja nema argumenata. Izvršavanje naredbe se prekida
+točno 5 sekundi nakon pokretanja
+Točan odgovor je:
+Pokreće naredbu koju zadaje korisnik, a koja može imati svoje argumente. Izvršavanje naredbe se prekida
+najmanje 5 sekundi nakon pokretanja
+.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid > 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. 8
+c. Nije definirano
+d. 1
+e. 4
+f. 2
+Točan odgovor je:
+4
+.
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57436 3/6
+Pitanje 6
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 7
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 8
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+Rezultat izvođenja naredbe
+gcc -Wall -O3 fn.c -o fn.o
+je
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka fn
+B. izvršna datoteka fn.o
+C. izvršna datoteka a.out
+D. objektna datoteka fn.o
+E. objektna datoteka fn
+Točan odgovor je: izvršna datoteka fn.o.
+U datoteci funkcija.c nalazi se kod:
+#include <stdio.h>
+void ispis() {
+printf("Hello!\n");
+}
+int main() {
+ispis();
+return 0;
+}
+Naredbom
+gcc -c -Wall funkcija.c
+dobiva se
+Odaberite jedan ili više odgovora:
+A. izvršna datoteka funkcija
+B. objektna datoteka ispis.o
+C. objektna datoteka funkcija.o
+D. izvršna datoteka funkcija.o
+E. izvršna datoteka a.out
+Točan odgovor je: objektna datoteka funkcija.o.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=1;
+for (i=0; i<3; i++) {
+ if(pid != 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 2
+b. 8
+c. Nije definirano
+d. 6
+e. 1
+f. 4
+Točan odgovor je:
+Nije definirano
+.
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57436 4/6
+Pitanje 9
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 10
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Pitanje 11
+Točno
+Mark 5,00 out of
+5,00
+Flag
+question
+Nakon izvođenja koda
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+int main(int argc, char **argv) {
+ int pid;
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ if ((pid=fork()) == -1) {
+ perror("fork");
+ return 1;
+ } else if (pid == 0) {
+ sleep(3);
+ printf("%d\n", getppid());
+ return 0;
+ } else
+ return 0;
+ }
+ wait(NULL);
+ return 0;
+}
+broj koji se ispiše će biti:
+Odaberite jedan odgovor:
+a. 1
+b. Kod ima grešku i nemože se iskompajlirati ni pokrenuti
+c. 0
+d. veći od 1
+e. manji od 0
+Točan odgovor je:
+1
+.
+Za simbolička prava pristupa zadana sa
+-rwxr-xr-x
+oktalni mod glasi:
+Odaberite jedan ili više odgovora:
+A. 666
+B. 744
+C. 655
+D. 755
+E. 777
+F. 644
+Točan odgovor je: 755.
+U Makefile datoteci:
+CC = /usr/bin/gcc
+FLAGS = -Wall -O3
+TARGETS = hello01 hello02 hello12 hello11 hello13
+default: hello13
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57436 5/6
+Pitanje 12
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 13
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+all: hello01 hello02 hello11 hello12 hello13
+hello01: hello.c
+ $(CC) $(FLAGS) hello.c -o hello01
+hello02: hello1.c funkcija.c funkcija2.c
+ $(CC) $(FLAGS) hello1.c funkcija.c funkcija2.c \
+ -o hello02
+hello11: hello.o
+ $(CC) $(FLAGS) hello.o -o hello11
+hello12: hello1.o funkcija.o funkcija2.o
+ $(CC) $(FLAGS) hello1.o funkcija.o funkcija2.o \
+ -o hello12
+hello13: hello1.o
+ $(CC) $(FLAGS) hello1.o libmoj.a -o hello13
+clean:
+ rm -f *.o *~ a.out $(TARGETS)
+.c.o:
+ $(CC) $(FLAGS) -c $<
+Odaberite jedan ili više odgovora:
+A. Pravila hello11 i hello12 generiraju jednaku izvršnu datoteku
+B. Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku
+C. ravila hello02 i hello12 generiraju jednaku izvršnu datoteku
+D. Pravila hello01 i hello02 generiraju jednaku izvršnu datoteku
+Točan odgovor je: Pravila hello01 i hello11 generiraju jednaku izvršnu datoteku, ravila hello02 i hello12
+generiraju jednaku izvršnu datoteku.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i<3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 4
+b. 6
+c. 8
+d. 1
+e. 2
+f. Nije definirano
+Točan odgovor je:
+4
+.
+#define BUFFSIZE 256
+char buf[BUFFSIZE];
+int main() {
+int n, fdin, fdout;
+umask(S_IWGRP | S_IRGRP | S_IWOTH);
+fdout = open("dat.txt", O_WRONLY | O_CREAT, \
+S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | \
+S_IROTH);
+if (fdout == -1) {
+perror("open");
+2/8/2018 2. Kolokvij
+https://elearning.fesb.unist.hr/mod/quiz/review.php?attempt=57436 6/6
+© 2018 Sva prava pridržana.
+Pitanje 14
+Točno
+Mark 10,00 out of
+10,00
+Flag
+question
+Pitanje 15
+Netočno
+Mark 0,00 out of
+10,00
+Flag
+question
+exit(1);
+} 
+fdin = STDIN_FILENO;
+while ((n=read(fdin, buf, BUFFSIZE)) > 0) {
+write(fdout, buf, n);
+}
+if (n < 0)
+perror("read");
+close(fdout);
+exit(0);
+}
+Kao rezultat izvršavanja stvara datoteku dat.txt. Ova datoteka će imati slijedeća prava pristupa: 
+Odaberite jedan ili više odgovora:
+A. Pravo čitanja i pisanja za korisnika, bez prava za grupu, pravo čitanja za ostale
+B. Pravo čitanja i pisanja za korisnika, pravo čitanja za grupu, bez prava za ostale
+C. Pravo čitanja i pisanja za korisnika, pravo čitanja i pisanja za grupu, pravo čitanja za ostale
+Točan odgovor je: Pravo čitanja i pisanja za korisnika, bez prava za grupu, pravo čitanja za ostale.
+Koliki je broj procesa nakon izvršavanja slijedećeg koda?
+int i, pid=0;
+for (i=0; i<3; i++) {
+ if(pid == 0)
+ pid = fork();
+}
+Odaberite jedan ili više odgovora:
+a. 6
+b. 8
+c. 4
+d. 2
+e. 1
+Točan odgovor je:
+4
+.
+Ukoliko želimo postojeću datoteku dat1.txt otvoriti za čitanje i pisanje, poziv funkcije
+open("dat1.txt", O_RDWR | O_CREAT | O_EXCL, 0644);
+kao rezultat vraća:
+Odaberite jedan ili više odgovora:
+A. Poziv funkcije open sa navedenom kombinacijom argumenata rezultira greškom
+B. Pokazivač tipa FILE *fp koji pokazuje na otvorenu datoteku
+C. Nenegativni file deskriptor otvorene datoteke
+Točan odgovor je: Poziv funkcije open sa navedenom kombinacijom argumenata rezultira greškom.
+Završi pregled
